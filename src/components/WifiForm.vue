@@ -1,19 +1,21 @@
-<script setup>
-import { ref } from 'vue';
-
-// const name = ref('')
-// const password = ref('')
-
-const props = defineProps([
-  'wifiInfo'
-])
-
-const emit = defineEmits([
-  'add-wifi-info'
-])
-
-function save() {
-  emit('add-wifi-info', wifiInfo.value)
+<script>
+export default {
+  props: ['wifiInfo'],
+  emits: ['save-wifi-info'],
+  data() {
+    return {
+      name: this.wifiInfo ? this.wifiInfo.name : '',
+      password: this.wifiInfo ? this.wifiInfo.password : ''
+    }
+  },
+  methods: {
+    saveWifiInfo() {
+      this.$emit('save-wifi-info', {
+        name: this.name,
+        password: this.password
+      })
+    }
+  }
 }
 </script>
 
@@ -21,16 +23,14 @@ function save() {
   <p>Enter your wifi credentials for easy sharing</p>
   <div>
     <label for="name">Name</label>
-    <input type="text" name="name" id="name"
-      :value="wifiInfo.name">
+    <input type="text" name="name" id="name" v-model="name">
   </div>
   <div>
     <label for="password">Password</label>
-    <input type="text" name="password" id="password"
-      :value="wifiInfo.password">
+    <input type="text" name="password" id="password" v-model="password">
   </div>
   <div>
-    <button @click="save">Save</button>
+    <button @click="saveWifiInfo">Save</button>
   </div>
 </template>
 
