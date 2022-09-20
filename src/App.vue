@@ -9,8 +9,8 @@ export default {
   },
   data() {
     return {
-      wifiInfo: null,
-      editWifiInfo: false
+      wifiInfo: {},
+      editWifiInfo: true
     }
   },
   methods: {
@@ -18,11 +18,12 @@ export default {
       this.wifiInfo = wifiInfo
       this.editWifiInfo = false
     },
-    showFilledForm() {
+    showForm() {
       this.editWifiInfo = true
     },
     deleteQR() {
-      this.wifiInfo = null
+      this.wifiInfo = {}
+      this.showForm()
     }
   }
 }
@@ -30,9 +31,11 @@ export default {
 
 <template>
   <h1>Share My Wifi</h1>
-  <WifiForm v-if="!wifiInfo" @save-wifi-info="showQR" />
-  <WifiForm v-else-if="editWifiInfo" :wifiInfo="wifiInfo" @save-wifi-info="showQR" />
-  <WifiQR v-else :wifiInfo="wifiInfo" @edit-wifi-info="showFilledForm" @delete-wifi-info="deleteQR" />
+  <WifiForm v-if="editWifiInfo" :wifiInfo="wifiInfo"
+    @save-wifi-info="showQR" />
+  <WifiQR v-else :wifiInfo="wifiInfo"
+    @edit-wifi-info="showForm"
+    @delete-wifi-info="deleteQR" />
 </template>
 
 <style>

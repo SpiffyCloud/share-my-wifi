@@ -4,8 +4,8 @@ export default {
   emits: ['save-wifi-info'],
   data() {
     return {
-      name: this.wifiInfo ? this.wifiInfo.name : '',
-      password: this.wifiInfo ? this.wifiInfo.password : ''
+      name: this.wifiInfo.name ? this.wifiInfo.name : '',
+      password: this.wifiInfo.password ? this.wifiInfo.password : ''
     }
   },
   methods: {
@@ -27,7 +27,8 @@ export default {
   </div>
   <div>
     <label for="password">Password</label>
-    <input type="text" name="password" id="password" v-model="password">
+    <input type="text" name="password" id="password"
+      v-model="password">
   </div>
   <div>
     <button @click="saveWifiInfo">Save</button>

@@ -5,9 +5,7 @@ export default {
   components: {
     QrcodeVue
   },
-  props: {
-    wifiInfo: Object
-  },
+  props: ['wifiInfo'],
   emits: ['edit-wifi-info', 'delete-wifi-info'],
   computed: {
     getWifiQRCode() {
@@ -29,7 +27,8 @@ export default {
 <template>
   <h2>{{ wifiInfo.name }}</h2>
   <div class="qr">
-    <qrcode-vue :value="getWifiQRCode" margin="1" size="200" />
+    <qrcode-vue :value="getWifiQRCode" :margin="1"
+      :size="200" />
   </div>
 
   <button @click="editWifiInfo">Edit</button>
