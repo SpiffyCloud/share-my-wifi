@@ -1,36 +1,21 @@
 <script setup>
-const props = defineProps([
-  'wifiInfo'
-])
-const emits = defineEmits([
-  'edit', 'delete'
-])
-
-function editWifiInfo() {
-  emits('edit')
-}
-
-function deleteWifiInfo() {
-  emits('delete')
-}
+const props = defineProps(['credentials'])
+const emits = defineEmits(['edit', 'delete'])
 </script>
 
 <template>
-  <h2>{{ wifiInfo.name }}</h2>
+  <h2>{{ credentials.name }}</h2>
   <div class="qr">
-    {{ wifiInfo.password }}
+    {{ credentials.password }}
   </div>
 
-  <button @click="editWifiInfo">Edit</button>
-  <button>Share</button>
-  <button @click="deleteWifiInfo">Delete</button>
-
-
+  <button @click="emits('edit')">Edit</button>
+  <button @click="emits('delete')">Delete</button>
 </template>
 
 <style>
 .qr {
-  background-color: white;
+  background-color: #eee;
   color: black;
   width: 10rem;
   height: 10rem;

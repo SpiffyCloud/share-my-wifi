@@ -1,20 +1,6 @@
 <script setup>
-import { ref } from 'vue';
-
-// const name = ref('')
-// const password = ref('')
-
-const props = defineProps([
-  'wifiInfo'
-])
-
-const emit = defineEmits([
-  'add-wifi-info'
-])
-
-function save() {
-  emit('add-wifi-info', wifiInfo.value)
-}
+const props = defineProps(['credentials'])
+const emit = defineEmits(['add'])
 </script>
 
 <template>
@@ -22,23 +8,18 @@ function save() {
   <div>
     <label for="name">Name</label>
     <input type="text" name="name" id="name"
-      :value="wifiInfo.name">
+      v-model="credentials.name">
   </div>
   <div>
     <label for="password">Password</label>
     <input type="text" name="password" id="password"
-      :value="wifiInfo.password">
+      v-model="credentials.password">
   </div>
   <div>
-    <button @click="save">Save</button>
+    <button @click="emit('add')">Save</button>
   </div>
 </template>
 
 <style>
-input {
-  background: none;
-  border: none;
-  border-bottom: 2px solid var(--vt-c-white-mute);
-  color: inherit;
-}
+
 </style>

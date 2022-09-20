@@ -3,30 +3,30 @@ import { ref } from 'vue';
 import WifiForm from './components/WifiForm.vue';
 import WifiQR from './components/WifiQR.vue';
 
-const wifiInfo = ref(null)
-const editWifiInfo = ref(false)
+const credentials = ref({ name: '', password: '' })
+const showForm = ref(true)
 
-function showQR(wifi) {
-  wifiInfo.value = wifi
+function hideForm() {
+  showForm.value = false
 }
 
-function showFilledForm() {
-  editWifiInfo.value = true
+function editCredentials() {
+  showForm.value = true
 }
 
-function deleteQR() {
-  wifiInfo.value = null
+function deleteCredentials() {
+  credentials.value.name = ''
+  credentials.value.password = ''
+  editCredentials()
 }
-
 </script>
 
 <template>
   <h1>Share My Wifi</h1>
-  <WifiForm v-if="!wifiInfo" @add-wifi-info="showQR" />
-  <WifiForm v-else-if="editWifiInfo" :wifiInfo="wifiInfo"
-    @add-wifi-info="showQR" />
-  <WifiQR v-else :wifiInfo="wifiInfo" @edit="showFilledForm"
-    @delete="deleteQR" />
+  <WifiForm v-if="showForm" :credentials="credentials"
+    @add="hideForm" />
+  <WifiQR v-else :credentials="credentials"
+    @edit="editCredentials" @delete="deleteCredentials" />
 </template>
 
 <style>
