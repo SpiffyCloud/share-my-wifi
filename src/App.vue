@@ -8,7 +8,11 @@ const showForm = ref(true)
 
 function hideForm(updated) {
   if (updated) {
-    credentials.value.updated = Date.now()
+    const date = new Date()
+    credentials.value.updated = date.toLocaleString('en', {
+      dateStyle: 'medium',
+      timeStyle: 'short'
+    })
   }
   showForm.value = false
 }
@@ -28,7 +32,7 @@ function deleteCredentials() {
 <template>
   <h1>Share My Wifi</h1>
   <WifiForm v-if="showForm" :credentials="credentials"
-    @add="hideForm" @cancel="hideForm" />
+    @update="hideForm" />
   <WifiQR v-else :credentials="credentials"
     @edit="editCredentials" @delete="deleteCredentials" />
 </template>

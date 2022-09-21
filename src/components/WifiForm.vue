@@ -1,10 +1,9 @@
 <script setup>
 import { computed } from 'vue';
 const props = defineProps(['credentials'])
-const emit = defineEmits(['add', 'cancel'])
+const emit = defineEmits(['update'])
 
 const { name, password } = props.credentials
-
 
 const hasCredentials = computed(() => {
   return props.credentials.updated !== null
@@ -31,7 +30,7 @@ const credentialsUpdated = computed(() => {
       v-model="credentials.password">
   </div>
   <div>
-    <button @click="emit('add', credentialsUpdated)">{{
+    <button @click="emit('update', credentialsUpdated)">{{
     hasCredentials ?
     'Done' : 'Add'}}</button>
   </div>
