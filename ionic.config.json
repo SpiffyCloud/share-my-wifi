@@ -1,0 +1,7 @@
+{
+  "name": "share-my-wifi",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "custom"
+}

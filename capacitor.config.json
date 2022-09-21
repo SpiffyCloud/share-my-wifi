@@ -1,0 +1,6 @@
+{
+  "appId": "io.dayron.sharemywifi",
+  "appName": "share-my-wifi",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}
