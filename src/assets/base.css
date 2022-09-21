@@ -1,61 +1,108 @@
-/* color palette from <https://github.com/vuejs/theme> */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap');
+
+/* color palette */
 :root {
-  --vt-c-white: #ffffff;
-  --vt-c-white-soft: #f8f8f8;
-  --vt-c-white-mute: #f2f2f2;
+  /* white */
+  --color-white-light: rgb(244, 245, 246);
+  --color-white-dark: rgb(237, 239, 239);
+  --color-white-16: rgba(244, 245, 246, 0.16);
+  --color-white-8: rgba(244, 245, 246, .08);
+  --color-white-shadow-light: rgb(218, 222, 226);
+  --color-white-shadow-dark: rgb(149, 162, 178);
 
-  --vt-c-black: #181818;
-  --vt-c-black-soft: #222222;
-  --vt-c-black-mute: #282828;
+  /* blue */
+  --color-blue-light: rgb(63, 79, 99);
+  --color-blue-dark: rgb(56, 73, 92);
+  --color-blue-dark-16: rgba(56, 73, 92, .16);
+  --color-blue-dark-8: rgba(56, 73, 92, .08);
+  --color-blue-shadow-light: rgb(66, 85, 107);
+  --color-blue-shadow-dark: rgb(47, 61, 77);
 
-  --vt-c-indigo: #2c3e50;
+  /* green */
+  --color-green-light: rgb(111, 228, 158);
+  --color-green-light-16: rgba(111, 228, 158, .16);
+  --color-green-light-24: rgba(111, 228, 158, .24);
+  --color-green-dark: rgb(74, 170, 112);
+  --color-green-dark-24: rgba(74, 170, 112, .24);
+  --color-green-dark-32: rgba(74, 170, 112, .32);
 
-  --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
-  --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
-  --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
-  --vt-c-divider-dark-2: rgba(84, 84, 84, 0.48);
+  /* pink */
+  --color-pink-light: rgb(228, 111, 154);
+  --color-pink-light-24: rgba(228, 111, 154, .24);
+  --color-pink-dark: rgb(218, 92, 137);
+  --color-pink-dark-24: rgba(218, 92, 137, .24);
 
-  --vt-c-text-light-1: var(--vt-c-indigo);
-  --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
-  --vt-c-text-dark-1: var(--vt-c-white);
-  --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
+  /* font sizes */
+  --font-size-tiny: .8rem;
+  --font-size-small: 1rem;
+  --font-size-medium: 1.5rem;
+  --font-size-large: 2rem;
+  --font-size-buttons: 1.25rem;
+
+  /* font weights */
+  --font-weight-thin: 200;
+  --font-weight-regular: 400;
+  --font-weight-bold: 700;
 }
 
-/* semantic color variables for this project */
+/* light theme */
 :root {
-  --color-background: var(--vt-c-white);
-  --color-background-soft: var(--vt-c-white-soft);
-  --color-background-mute: var(--vt-c-white-mute);
+  --color-background: var(--color-white-light);
 
-  --color-border: var(--vt-c-divider-light-2);
-  --color-border-hover: var(--vt-c-divider-light-1);
+  --color-card-background: var(--color-white-dark);
+  --color-card-shadow-light: var(--color-white-shadow-light);
+  --color-card-shadow-dark: var(--color-white-shadow-dark);
 
-  --color-heading: var(--vt-c-text-light-1);
-  --color-text: var(--vt-c-text-light-1);
+  --color-text: var(--color-blue-dark);
 
-  --section-gap: 160px;
+  --color-button-submit-text: var(--color-green-dark);
+  --color-button-submit-background: var(--color-green-dark-24);
+  --color-button-submit-background-pressed: var(--color-green-dark-32);
+
+  --color-button-delete-text: var(--color-pink-dark);
+  --color-button-delete-background: var(--color-pink-dark-24);
 }
 
+/* dark theme */
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-background: var(--vt-c-black);
-    --color-background-soft: var(--vt-c-black-soft);
-    --color-background-mute: var(--vt-c-black-mute);
+    --color-background: var(--color-blue-dark);
 
-    --color-border: var(--vt-c-divider-dark-2);
-    --color-border-hover: var(--vt-c-divider-dark-1);
+    --color-card-background: var(--color-blue-light);
+    --color-card-shadow-light: var(--color-blue-shadow-light);
+    --color-card-shadow-dark: var(--color-blue-shadow-dark);
 
-    --color-heading: var(--vt-c-text-dark-1);
-    --color-text: var(--vt-c-text-dark-2);
+    --color-text: var(--color-white-light);
+
+    --color-button-submit-text: var(--color-green-light);
+    --color-button-submit-background: var(--color-green-light-16);
+    --color-button-submit-background-pressed: var(--color-green-light-24);
+
+    --color-button-delete-text: var(--color-pink-light);
+    --color-button-delete-background: var(--color-pink-light-24);
   }
 }
 
 body {
   min-height: 100vh;
+  text-align: center;
+  padding: 0 2.5rem;
+  margin: 0;
   color: var(--color-text);
   background: var(--color-background);
   transition: color 0.5s, background-color 0.5s;
+  font-family: 'Poppins', sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+#app {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  gap: 2rem;
+  align-content: space-around;
+  max-width: 30rem;
+  margin: 0 auto;
 }

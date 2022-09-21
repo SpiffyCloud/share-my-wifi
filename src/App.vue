@@ -38,5 +38,29 @@ function deleteCredentials() {
 </template>
 
 <style>
+  label {
+    font-size: var(--font-size-small);
+    display: block;
+    text-align: left;
+  }
 
+  input {
+    font-size: var(--font-size-medium);
+    width: 100%;
+    border: none;
+    border-radius: 1rem;
+    padding: .5rem;
+    display: block;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  button {
+    font-size: var(--font-size-buttons);
+    padding: .5rem 2rem;
+    border-radius: 2rem;
+    border: none;
+    display: block;
+    margin: 0 auto;
+  }
 </style>
