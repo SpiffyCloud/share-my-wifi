@@ -1,16 +1,19 @@
 <script setup>
 const props = defineProps(['type'])
 const emit = defineEmits(['click'])
+const buttonTheme = 'button__' + props.type
+console.log(buttonTheme, typeof buttonTheme);
 </script>
 
 <template>
-  <button @click="emit('click')" :class="type">
+  <button class="button" :class="buttonTheme"
+    @click="emit('click')">
     <slot>&#9786; action</slot>
   </button>
 </template>
 
 <style>
-button {
+.button {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -23,28 +26,36 @@ button {
   font-weight: var(--font-weight-medium);
 }
 
-.submit {
+.button__submit {
   color: var(--color-button-submit-text);
   background-color: var(--color-button-submit-background);
 
 }
 
-.submit:hover,
-.submit:active {
+.button__submit:hover,
+.button__submit:active {
   background-color: var(--color-button-submit-background-pressed);
 }
 
-.delete {
+.button__submit:focus {
+  outline: .15rem solid var(--color-button-submit-text);
+}
+
+.button__delete {
   color: var(--color-button-delete-text);
   background: none;
 }
 
-.delete:hover,
-.delete:active {
+.button__delete:hover,
+.button__delete:active {
   background-color: var(--color-button-delete-background-pressed);
 }
 
-svg {
+.button__delete:focus {
+  outline: .15rem solid var(--color-button-delete-text);
+}
+
+.button svg {
   fill: currentColor;
   width: var(--font-size-buttons);
   height: var(--font-size-buttons);
