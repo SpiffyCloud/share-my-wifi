@@ -9,6 +9,11 @@ const emit = defineEmits(['update'])
 
 const { name, password } = props.credentials
 
+const isInvalid = computed(() => {
+  // temp need to have input validation
+  return false
+})
+
 const hasCredentials = computed(() => {
   return props.credentials.updated !== null
 })
@@ -19,13 +24,6 @@ const credentialsUpdated = computed(() => {
     return true
   } else return false
 })
-
-const currentIcon = computed(() => {
-  if (hasCredentials) return IconCheck
-  else return IconPlus
-})
-
-const test = () => console.log('action clicked!')
 </script>
 
 <template>
@@ -41,7 +39,7 @@ const test = () => console.log('action clicked!')
       v-model="credentials.password">
   </div>
   <div>
-    <ActionButton :type="'submit'"
+    <ActionButton :type="'submit'" :disabled="isInvalid"
       @click="emit('update', credentialsUpdated)">
       <IconPlus v-if="!hasCredentials" />
       <IconCheck v-else />

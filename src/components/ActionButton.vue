@@ -1,13 +1,12 @@
 <script setup>
-const props = defineProps(['type'])
+const props = defineProps(['type', 'disabled'])
 const emit = defineEmits(['click'])
 const buttonTheme = 'button__' + props.type
-console.log(buttonTheme, typeof buttonTheme);
 </script>
 
 <template>
   <button class="button" :class="buttonTheme"
-    @click="emit('click')">
+    @click="emit('click')" :disabled="disabled">
     <slot>&#9786; action</slot>
   </button>
 </template>
@@ -24,6 +23,10 @@ console.log(buttonTheme, typeof buttonTheme);
   border: none;
   font-size: var(--font-size-buttons);
   font-weight: var(--font-weight-medium);
+}
+
+.button:disabled {
+  opacity: 56%;
 }
 
 .button__submit {

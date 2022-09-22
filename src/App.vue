@@ -1,7 +1,9 @@
 <script setup>
 import { ref } from 'vue';
+
 import WifiForm from './components/WifiForm.vue';
 import WifiQR from './components/WifiQR.vue';
+import Logo from './components/Logo.vue';
 
 const credentials = ref({ name: '', password: '', updated: null })
 const showForm = ref(true)
@@ -30,7 +32,7 @@ function deleteCredentials() {
 </script>
 
 <template>
-  <h1>Share My Wifi</h1>
+  <Logo />
   <WifiForm v-if="showForm" :credentials="credentials"
     @update="hideForm" />
   <WifiQR v-else :credentials="credentials"
