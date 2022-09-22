@@ -1,9 +1,11 @@
 <script setup>
 import { computed } from 'vue'
 import QrcodeVue from 'qrcode.vue'
+import ActionButton from './ActionButton.vue';
+import IconTrash from './icons/IconTrash.vue';
 
 const props = defineProps(['credentials'])
-const emits = defineEmits(['edit', 'delete'])
+const emit = defineEmits(['edit', 'delete'])
 
 const qrCode = computed(() => {
   const { name, password } = props.credentials
@@ -20,8 +22,11 @@ const qrCode = computed(() => {
   </div>
   <p>Last Updated: {{ credentials.updated }}</p>
 
-  <button @click="emits('edit')">Edit</button>
-  <button @click="emits('delete')">Delete</button>
+  <button @click="emit('edit')">Edit</button>
+  <ActionButton :type="'delete'" @click="emit('delete')">
+    <IconTrash />
+    <span>Delete</span>
+  </ActionButton>
 </template>
 
 <style>

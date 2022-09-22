@@ -54,13 +54,4 @@ function deleteCredentials() {
     box-sizing: border-box;
     text-align: center;
   }
-
-  button {
-    font-size: var(--font-size-buttons);
-    padding: .5rem 2rem;
-    border-radius: 2rem;
-    border: none;
-    display: block;
-    margin: 0 auto;
-  }
 </style>

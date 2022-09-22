@@ -1,5 +1,9 @@
 <script setup>
-import { computed } from 'vue';
+import { computed } from 'vue'
+import ActionButton from './ActionButton.vue'
+import IconPlus from './icons/IconPlus.vue'
+import IconCheck from './icons/IconCheck.vue'
+
 const props = defineProps(['credentials'])
 const emit = defineEmits(['update'])
 
@@ -15,6 +19,13 @@ const credentialsUpdated = computed(() => {
     return true
   } else return false
 })
+
+const currentIcon = computed(() => {
+  if (hasCredentials) return IconCheck
+  else return IconPlus
+})
+
+const test = () => console.log('action clicked!')
 </script>
 
 <template>
@@ -30,9 +41,12 @@ const credentialsUpdated = computed(() => {
       v-model="credentials.password">
   </div>
   <div>
-    <button @click="emit('update', credentialsUpdated)">{{
-    hasCredentials ?
-    'Done' : 'Add'}}</button>
+    <ActionButton :type="'submit'"
+      @click="emit('update', credentialsUpdated)">
+      <IconPlus v-if="!hasCredentials" />
+      <IconCheck v-else />
+      <span>{{ hasCredentials ? 'Done' : 'Add' }}</span>
+    </ActionButton>
   </div>
 </template>
 

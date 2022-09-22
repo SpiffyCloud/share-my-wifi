@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap');
 
 /* color palette */
 :root {
@@ -20,8 +20,8 @@
 
   /* green */
   --color-green-light: rgb(111, 228, 158);
-  --color-green-light-16: rgba(111, 228, 158, .16);
   --color-green-light-24: rgba(111, 228, 158, .24);
+  --color-green-light-32: rgba(111, 228, 158, .32);
   --color-green-dark: rgb(74, 170, 112);
   --color-green-dark-24: rgba(74, 170, 112, .24);
   --color-green-dark-32: rgba(74, 170, 112, .32);
@@ -42,6 +42,7 @@
   /* font weights */
   --font-weight-thin: 200;
   --font-weight-regular: 400;
+  --font-weight-medium: 500;
   --font-weight-bold: 700;
 }
 
@@ -60,7 +61,7 @@
   --color-button-submit-background-pressed: var(--color-green-dark-32);
 
   --color-button-delete-text: var(--color-pink-dark);
-  --color-button-delete-background: var(--color-pink-dark-24);
+  --color-button-delete-background-pressed: var(--color-pink-dark-24);
 }
 
 /* dark theme */
@@ -75,11 +76,11 @@
     --color-text: var(--color-white-light);
 
     --color-button-submit-text: var(--color-green-light);
-    --color-button-submit-background: var(--color-green-light-16);
-    --color-button-submit-background-pressed: var(--color-green-light-24);
+    --color-button-submit-background: var(--color-green-light-24);
+    --color-button-submit-background-pressed: var(--color-green-light-32);
 
     --color-button-delete-text: var(--color-pink-light);
-    --color-button-delete-background: var(--color-pink-light-24);
+    --color-button-delete-background-pressed: var(--color-pink-light-24);
   }
 }
 
@@ -91,7 +92,7 @@ body {
   color: var(--color-text);
   background: var(--color-background);
   transition: color 0.5s, background-color 0.5s;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Inter', sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
