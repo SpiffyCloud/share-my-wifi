@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import ActionButton from './ActionButton.vue'
 import IconPlus from './icons/IconPlus.vue'
 import IconCheck from './icons/IconCheck.vue'
+import Card from './Card.vue';
 
 const props = defineProps(['credentials'])
 const emit = defineEmits(['update'])
@@ -27,17 +28,21 @@ const credentialsUpdated = computed(() => {
 </script>
 
 <template>
-  <p>Add your wifi credentials for easy sharing</p>
-  <div>
-    <label for="name">Name</label>
-    <input type="text" name="name" id="name"
-      v-model="credentials.name">
-  </div>
-  <div>
-    <label for="password">Password</label>
-    <input type="text" name="password" id="password"
-      v-model="credentials.password">
-  </div>
+  <p class="instructions">Add your wifi credentials for easy
+    sharing</p>
+
+  <Card>
+    <div>
+      <label for="name">Name</label>
+      <input type="text" name="name" id="name"
+        v-model="credentials.name">
+    </div>
+    <div>
+      <label for="password">Password</label>
+      <input type="text" name="password" id="password"
+        v-model="credentials.password">
+    </div>
+  </Card>
   <div>
     <ActionButton :type="'submit'" :disabled="isInvalid"
       @click="emit('update', credentialsUpdated)">

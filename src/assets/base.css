@@ -40,7 +40,7 @@
   --font-size-buttons: 1.25rem;
 
   /* font weights */
-  --font-weight-thin: 200;
+  --font-weight-light: 200;
   --font-weight-regular: 400;
   --font-weight-medium: 500;
   --font-weight-bold: 700;
@@ -48,9 +48,9 @@
 
 /* light theme */
 :root {
-  --color-background: var(--color-white-light);
+  --color-background: var(--color-white-dark);
 
-  --color-card-background: var(--color-white-dark);
+  --color-card-background: var(--color-white-light);
   --color-card-shadow-light: var(--color-white-shadow-light);
   --color-card-shadow-dark: var(--color-white-shadow-dark);
 
@@ -87,7 +87,7 @@
 body {
   min-height: 100vh;
   text-align: center;
-  padding: 0 2.5rem;
+  padding: 0 3rem;
   margin: 0;
   color: var(--color-text);
   background: var(--color-background);
@@ -104,6 +104,6 @@ body {
   flex-direction: column;
   gap: 2rem;
   align-content: space-around;
-  max-width: 30rem;
+  max-width: 24rem;
   margin: 0 auto;
 }

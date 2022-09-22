@@ -12,9 +12,6 @@ import IconWifi from './icons/IconWifi.vue';
 <style>
 .logo {
   position: static;
-  block-size: fit-content;
-  width: fit-content;
-  width: -moz-fit-content;
   margin: 0 auto;
 }
 
