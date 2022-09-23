@@ -1,7 +1,13 @@
 <script setup>
-import { ref } from 'vue'
-const props = defineProps(['group', 'type', 'placeholder', 'model'])
-const emit = defineEmits(['input'])
+const props = defineProps([
+  'group',
+  'type',
+  'placeholder',
+  'modelValue'
+])
+const emit = defineEmits(['update:modelValue'])
+
+// TODO: handle error messages
 </script>
 
 <template>
@@ -10,8 +16,8 @@ const emit = defineEmits(['input'])
       {{ group }}
     </label>
     <input :type="type" :name="group" :id="group"
-      :placeholder="placeholder" :value="model"
-      @input="e => emit('input', e)">
+      :placeholder="placeholder" :value="modelValue"
+      @input="e => emit('update:modelValue', e.target.value)">
   </div>
 </template>
 
@@ -36,7 +42,8 @@ const emit = defineEmits(['input'])
 }
 
 .input input:focus {
-  outline: .15rem solid var(--color-text);
+  outline: none;
+  box-shadow: 0 0 0 .15rem var(--color-text);
 }
 
 .input__label {
