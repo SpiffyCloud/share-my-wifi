@@ -34,7 +34,6 @@ const buttonTheme = 'button__' + props.type
 .button__submit {
   color: var(--color-button-submit-text);
   background-color: var(--color-button-submit-background);
-
 }
 
 .button__submit:hover,
@@ -43,7 +42,8 @@ const buttonTheme = 'button__' + props.type
 }
 
 .button__submit:focus {
-  outline: .15rem solid var(--color-button-submit-text);
+  outline: none;
+  box-shadow: 0 0 0 .15rem var(--color-button-submit-text);
 }
 
 .button__delete {
@@ -57,7 +57,8 @@ const buttonTheme = 'button__' + props.type
 }
 
 .button__delete:focus {
-  outline: .15rem solid var(--color-button-delete-text);
+  outline: none;
+  box-shadow: 0 0 0 .15rem var(--color-button-delete-text);
 }
 
 .button svg {

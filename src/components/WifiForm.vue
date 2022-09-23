@@ -7,9 +7,11 @@ import Card from './Card.vue';
 import InputField from './InputField.vue';
 import TextInstructions from './TextInstructions.vue';
 import TextTitle from './TextTitle.vue';
+import QrcodeVue from 'qrcode.vue'
+import IconTrash from './icons/IconTrash.vue';
 
 const props = defineProps(['credentials'])
-const emit = defineEmits(['update'])
+const emit = defineEmits(['update', 'edit', 'delete'])
 
 const { name, password } = props.credentials
 
@@ -41,14 +43,21 @@ const credentialsUpdated = computed(() => {
 const instructions = computed(() => {
   return `${hasCredentials ? 'Update' : 'Add'} your wifi credentials ${!hasCredentials ? 'for easy sharing' : ''}`
 })
+
+const qrCode = computed(() => {
+  const { name, password } = props.credentials
+  return `WIFI:S:${name};;P:${password};;`
+})
+
+const qrColor = computed(() => {
+  return getComputedStyle(document.body).getPropertyValue('--color-text')
+})
 </script>
 
 <template>
-  <TextInstructions :text="instructions" />
-  <TextTitle
-    :text="hasCredentials ? credentials.name : ''" />
-  <Transition>
-    <Card>
+
+  <Card>
+    <template v-slot:front>
       <InputField :group="'name'" :type="'text'"
         :model="credentials.name" :placeholder="'My WiFi'"
         @input="e => credentials.name = e.target.value" />
@@ -56,8 +65,13 @@ const instructions = computed(() => {
         :placeholder="'password123'"
         :model="credentials.password"
         @input="e => credentials.password = e.target.value" />
-    </Card>
-  </Transition>
+    </template>
+    <template v-slot:back>
+      <QrcodeVue :value="qrCode" :render-as="'svg'"
+        class="qr" :margin="0" :background="'none'"
+        :foreground="qrColor" />
+    </template>
+  </Card>
   <ActionButton :type="'submit'" :disabled="isInvalid"
     @click="emit('update', credentialsUpdated)">
     <IconPlus v-if="!hasCredentials" />

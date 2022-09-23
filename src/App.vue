@@ -1,15 +1,51 @@
 <script setup>
-import { ref } from 'vue';
-
-import WifiForm from './components/WifiForm.vue';
-import WifiQR from './components/WifiQR.vue';
+import { ref, computed, defineAsyncComponent } from 'vue';
 import Logo from './components/Logo.vue';
+import Card from './components/Card.vue';
+import qrCode from 'qrcode.vue';
+import InputField from './components/InputField.vue';
+import ActionButton from './components/ActionButton.vue';
+import LayoutSelected from './components/LayoutSelected.vue';
+// dynamically loaded components
+const IconPlus = defineAsyncComponent(() => import('./components/icons/IconPlus.vue'))
+const IconCheck = defineAsyncComponent(() => import('./components/icons/IconCheck.vue'))
+const IconTrash = defineAsyncComponent(() => import('./components/icons/IconTrash.vue'))
 
+// data management
 const credentials = ref({ name: '', password: '', updated: null })
+const currentCredentials = { name: '', password: '' }
+
+const deleteCredentials = () => {
+  credentials.value.name = ''
+  credentials.value.password = ''
+  credentials.value.updated = null
+  currentCredentials.name = ''
+  currentCredentials.password = ''
+  editCredentials()
+}
+
+const qr = computed(() => {
+  const { name, password } = credentials
+  return `WIFI:S:${name};;P:${password};;`
+})
+
+const credentialsUpdated = computed(() => {
+  if (currentCredentials.name !== credentials.value.name ||
+    currentCredentials.password !== credentials.value.password) {
+    return true
+  } else return false
+})
+
+// card flipping
 const showForm = ref(true)
 
-function hideForm(updated) {
-  if (updated) {
+const editCredentials = () => {
+  showForm.value = true
+}
+
+const hideForm = () => {
+  // determine if timestamp should be updated
+  if (credentialsUpdated) {
     const date = new Date()
     credentials.value.updated = date.toLocaleString('en', {
       dateStyle: 'medium',
@@ -17,26 +53,88 @@ function hideForm(updated) {
     })
   }
   showForm.value = false
+  // "save" new credential values
+  currentCredentials.name = credentials.value.name
+  currentCredentials.password = credentials.value.password
 }
 
-function editCredentials() {
-  showForm.value = true
+// form validation
+const isValidSSID = (str) => {
+  return /^[^!#;+\]/"\t][^+\]/"\t]{1,31}$/.test(str)
 }
 
-function deleteCredentials() {
-  credentials.value.name = ''
-  credentials.value.password = ''
-  credentials.value.updated = null
-  editCredentials()
-}
+const valid = computed(() => {
+  const { name, password } = credentials.value
+  if (isValidSSID(name) && password.length > 4) {
+    return true
+  } else return false
+})
+
+// layout and styling data
+const hasCredentials = computed(() => {
+  return credentials.value.updated !== null
+})
+
+const instructions = computed(() => {
+  if (showForm.value) {
+    return `${hasCredentials.value ? 'Update' : 'Add'} your wifi credentials ${hasCredentials.value ? '' : 'for easy sharing'}`
+  } else {
+    return 'Share your wifi with others by having them scan this QR code'
+  }
+})
+
+const title = computed(() => {
+  return hasCredentials.value ? credentials.value.name : ''
+})
+
+const timestamp = computed(() => {
+  return hasCredentials.value ? credentials.value.updated : ''
+})
+
+const qrColor = computed(() => {
+  return getComputedStyle(document.body).getPropertyValue('--color-text')
+})
 </script>
 
 <template>
   <Logo />
-  <WifiForm v-if="showForm" :credentials="credentials"
+  <LayoutSelected :title="title"
+    :instructions="instructions" :timestamp="timestamp"
+    :show="!showForm">
+    <template v-slot:card>
+      <Card :back="!showForm" @click="editCredentials">
+        <template v-slot:front>
+          <InputField :group="'name'" :type="'text'"
+            :placeholder="'My WiFi'"
+            v-model="credentials.name" />
+          <InputField :group="'password'" :type="'text'"
+            :placeholder="'password123'"
+            v-model="credentials.password" />
+        </template>
+        <template v-slot:back>
+          <qrCode :value="qr" :render-as="'svg'" :margin="0"
+            :background="'none'" :foreground="qrColor" />
+        </template>
+      </Card>
+    </template>
+    <template v-slot:button>
+      <ActionButton v-if="showForm" :type="'submit'"
+        :disabled="!valid" @click="hideForm">
+        <IconCheck v-if="hasCredentials" />
+        <IconPlus v-else />
+        <span>{{ hasCredentials ? 'Done' : 'Add' }}</span>
+      </ActionButton>
+      <ActionButton v-else :type="'delete'"
+        @click="deleteCredentials">
+        <IconTrash />
+        <span>Delete</span>
+      </ActionButton>
+    </template>
+  </LayoutSelected>
+  <!-- <WifiForm v-if="showForm" :credentials="credentials"
     @update="hideForm" />
   <WifiQR v-else :credentials="credentials"
-    @edit="editCredentials" @delete="deleteCredentials" />
+    @edit="editCredentials" @delete="deleteCredentials" /> -->
 </template>
 
 <style>

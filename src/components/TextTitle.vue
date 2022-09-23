@@ -11,6 +11,7 @@ const props = defineProps(['text'])
 <style>
 .container__title {
   min-height: 2.5rem;
+  min-width: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
