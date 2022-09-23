@@ -15,9 +15,9 @@ const emit = defineEmits(['click'])
 <style>
 .container__card {
   width: 100%;
-  max-width: 18rem;
+  max-width: 16.5rem;
   margin: 0 auto;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 .card {
@@ -45,10 +45,10 @@ const emit = defineEmits(['click'])
   /* content positioning */
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
-  gap: 2rem;
-  padding: 2rem;
+  gap: 1.25rem;
+  padding: .75rem 1.25rem;
 }
 
 .card__content svg {

@@ -40,8 +40,5 @@ function deleteCredentials() {
 </template>
 
 <style>
-  .instructions {
-    font-size: var(--font-size-small);
-    font-weight: var(--font-weight-light);
-  }
+
 </style>

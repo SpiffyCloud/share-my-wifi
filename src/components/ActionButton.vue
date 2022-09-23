@@ -19,6 +19,7 @@ const buttonTheme = 'button__' + props.type
   gap: .5rem;
   padding: .75rem 1.5rem;
   margin: 0 auto;
+  margin-top: 1.75rem;
   border-radius: 2rem;
   border: none;
   font-size: var(--font-size-buttons);
