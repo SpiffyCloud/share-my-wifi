@@ -6,6 +6,8 @@ const props = defineProps([
   'modelValue'
 ])
 const emit = defineEmits(['update:modelValue'])
+
+// TODO: handle error messages
 </script>
 
 <template>

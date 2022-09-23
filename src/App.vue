@@ -5,11 +5,10 @@ import Card from './components/Card.vue';
 import qrCode from 'qrcode.vue';
 import InputField from './components/InputField.vue';
 import ActionButton from './components/ActionButton.vue';
+import IconPlus from './components/icons/IconPlus.vue';
+import IconCheck from './components/icons/IconCheck.vue';
+import IconTrash from './components/icons/IconTrash.vue';
 import LayoutSelected from './components/LayoutSelected.vue';
-// dynamically loaded components
-const IconPlus = defineAsyncComponent(() => import('./components/icons/IconPlus.vue'))
-const IconCheck = defineAsyncComponent(() => import('./components/icons/IconCheck.vue'))
-const IconTrash = defineAsyncComponent(() => import('./components/icons/IconTrash.vue'))
 
 // data related
 const credentials = ref({ name: '', password: '', updated: null })
@@ -25,7 +24,7 @@ const deleteCredentials = () => {
 }
 
 const qr = computed(() => {
-  const { name, password } = credentials
+  const { name, password } = credentials.value
   return `WIFI:S:${name};;P:${password};;`
 })
 
@@ -58,7 +57,7 @@ const hideForm = () => {
   currentCredentials.password = credentials.value.password
 }
 
-// form validation
+// form validation TODO: error messages
 const isValidSSID = (str) => {
   return /^[^!#;+\]/"\t][^+\]/"\t]{1,31}$/.test(str)
 }
@@ -90,17 +89,13 @@ const title = computed(() => {
 const timestamp = computed(() => {
   return hasCredentials.value ? credentials.value.updated : ''
 })
-
-const qrColor = computed(() => {
-  return getComputedStyle(document.body).getPropertyValue('--color-text')
-})
 </script>
 
 <template>
   <Logo />
   <LayoutSelected :title="title"
     :instructions="instructions" :timestamp="timestamp"
-    :show="!showForm">
+    :showTimestamp="!showForm">
     <template v-slot:card>
       <Card :back="!showForm" @click="editCredentials">
         <template v-slot:front>
@@ -113,7 +108,7 @@ const qrColor = computed(() => {
         </template>
         <template v-slot:back>
           <qrCode :value="qr" :render-as="'svg'" :margin="0"
-            :background="'none'" :foreground="qrColor" />
+            :background="'none'" class="foreground" />
         </template>
       </Card>
     </template>
@@ -131,12 +126,10 @@ const qrColor = computed(() => {
       </ActionButton>
     </template>
   </LayoutSelected>
-  <!-- <WifiForm v-if="showForm" :credentials="credentials"
-    @update="hideForm" />
-  <WifiQR v-else :credentials="credentials"
-    @edit="editCredentials" @delete="deleteCredentials" /> -->
 </template>
 
 <style>
-
+.foreground path:last-child {
+  fill: var(--color-text)
+}
 </style>

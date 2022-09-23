@@ -6,7 +6,7 @@ const props = defineProps([
   'title',
   'instructions',
   'timestamp',
-  'show'
+  'showTimestamp'
 ])
 </script>
 
@@ -19,7 +19,8 @@ const props = defineProps([
   <slot name="card"></slot>
   <p class="timestamp">
     <Transition>
-      <span v-if="show">Last Updated: {{ timestamp }}</span>
+      <span v-if="showTimestamp">Last Updated: {{ timestamp
+      }}</span>
     </Transition>
   </p>
   <slot name="button"></slot>
