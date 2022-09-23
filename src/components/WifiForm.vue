@@ -44,6 +44,8 @@ const credentialsUpdated = computed(() => {
       for easy sharing
     </span>
   </p>
+  <h1 v-if="hasCredentials" class="title">{{
+  credentials.name }}</h1>
   <Card>
     <InputField :group="'name'" :type="'text'"
       :model="credentials.name" :placeholder="'My WiFi'"

@@ -17,6 +17,7 @@ import IconWifi from './icons/IconWifi.vue';
 
 .logo__text {
   font-size: 1.75rem;
+  margin-bottom: 0;
 }
 
 .logo svg {

@@ -3,14 +3,23 @@ const emit = defineEmits(['click'])
 </script>
 
 <template>
-  <div class="card" @click="emit('click')">
-    <div class="card__content">
-      <slot></slot>
+  <div class="container__card">
+    <div class="card" @click="emit('click')">
+      <div class="card__content">
+        <slot></slot>
+      </div>
     </div>
   </div>
 </template>
 
 <style>
+.container__card {
+  width: 100%;
+  max-width: 18rem;
+  margin: 0 auto;
+  margin-bottom: 1rem;
+}
+
 .card {
   /* 1:1 aspect ratio */
   padding-top: 100%;
@@ -39,7 +48,7 @@ const emit = defineEmits(['click'])
   justify-content: center;
   align-items: center;
   gap: 2rem;
-  padding: 3rem;
+  padding: 2rem;
 }
 
 .card__content svg {

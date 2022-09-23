@@ -24,7 +24,8 @@ const qrColor = computed(() => {
   <h1 class="title">{{ credentials.name }}</h1>
   <Card @click="emit('edit')">
     <QrcodeVue :value="qrCode" :render-as="'svg'" class="qr"
-      :background="'none'" :foreground="qrColor" />
+      :margin="0" :background="'none'"
+      :foreground="qrColor" />
   </Card>
   <p class="timestamp">Last Updated: {{ credentials.updated
   }}</p>
@@ -36,10 +37,9 @@ const qrColor = computed(() => {
 
 <style>
 .qr {
-  border-radius: 1.5rem;
   color: var(--color-text);
-
 }
+
 .title {
   font-size: var(--font-size-large);
   font-weight: var(--font-weight-medium);
