@@ -7,7 +7,7 @@ const emits = defineEmits(['edit', 'delete'])
 
 const qrCode = computed(() => {
   const { name, password } = props.credentials
-  return `WIFI:S:${name};;P:${password};;`
+  return `WIFI:S:${name};T:WPA;P:${password};;`
 })
 </script>
 
