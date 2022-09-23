@@ -3,8 +3,9 @@ import { ref } from 'vue'
 import { onMounted } from 'vue'
 import { Preferences } from '@capacitor/preferences';
 
-import WifiForm from './components/WifiForm.vue'
-import WifiQR from './components/WifiQR.vue'
+import WifiForm from './components/WifiForm.vue';
+import WifiQR from './components/WifiQR.vue';
+import Logo from './components/Logo.vue';
 
 const credentials = ref({ name: '', password: '', updated: null })
 const showForm = ref(null)
@@ -55,35 +56,14 @@ function removeCredentials() {
 </script>
 
 <template>
-  <h1>Share My Wifi</h1>
+  <Logo />
   <WifiForm v-if="showForm" :credentials="credentials" @update="hideForm" />
   <WifiQR v-else :credentials="credentials" @edit="editCredentials" @delete="removeCredentials" />
 </template>
 
 <style>
-label {
+.instructions {
   font-size: var(--font-size-small);
-  display: block;
-  text-align: left;
-}
-
-input {
-  font-size: var(--font-size-medium);
-  width: 100%;
-  border: none;
-  border-radius: 1rem;
-  padding: .5rem;
-  display: block;
-  box-sizing: border-box;
-  text-align: center;
-}
-
-button {
-  font-size: var(--font-size-buttons);
-  padding: .5rem 2rem;
-  border-radius: 2rem;
-  border: none;
-  display: block;
-  margin: 0 auto;
+  font-weight: var(--font-weight-light);
 }
 </style>
