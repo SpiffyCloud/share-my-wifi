@@ -39,7 +39,6 @@ const props = defineProps(['back'])
   /* animation */
   transition: transform 1s;
   transform-style: preserve-3d;
-  cursor: pointer;
 
   /* styling */
   border-radius: 1.5rem;

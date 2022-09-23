@@ -11,11 +11,16 @@ const props = defineProps([
 </script>
 
 <template>
-  <TextInstructions :text="instructions" />
+  <Transition mode="out-in">
+    <TextInstructions :text="instructions"
+      :key="instructions" />
+  </Transition>
   <TextTitle :text="title" />
   <slot name="card"></slot>
-  <p v-if="show" class="timestamp">
-    Last Updated: {{ timestamp }}
+  <p class="timestamp">
+    <Transition>
+      <span v-if="show">Last Updated: {{ timestamp }}</span>
+    </Transition>
   </p>
   <slot name="button"></slot>
 </template>
@@ -24,5 +29,17 @@ const props = defineProps([
 .timestamp {
   font-size: var(--font-size-tiny);
   margin: 0;
+  height: 1rem;
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition-delay: .25s;
+  transition: opacity 0.25s ease-out;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 </style>

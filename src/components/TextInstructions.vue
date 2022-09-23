@@ -10,7 +10,7 @@ const props = defineProps(['text'])
 
 <style>
 .container__instructions {
-  min-height: 2.5rem;
+  height: 2.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -11,7 +11,7 @@ const IconPlus = defineAsyncComponent(() => import('./components/icons/IconPlus.
 const IconCheck = defineAsyncComponent(() => import('./components/icons/IconCheck.vue'))
 const IconTrash = defineAsyncComponent(() => import('./components/icons/IconTrash.vue'))
 
-// data management
+// data related
 const credentials = ref({ name: '', password: '', updated: null })
 const currentCredentials = { name: '', password: '' }
 
@@ -53,7 +53,7 @@ const hideForm = () => {
     })
   }
   showForm.value = false
-  // "save" new credential values
+  // store new credential values
   currentCredentials.name = credentials.value.name
   currentCredentials.password = credentials.value.password
 }
