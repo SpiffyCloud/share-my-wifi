@@ -27,6 +27,7 @@ const buttonTheme = 'button__' + props.type
 
 .button:disabled {
   opacity: 56%;
+  pointer-events: none;
 }
 
 .button__submit {

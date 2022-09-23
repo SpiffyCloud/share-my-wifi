@@ -1,18 +1,28 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import ActionButton from './ActionButton.vue'
 import IconPlus from './icons/IconPlus.vue'
 import IconCheck from './icons/IconCheck.vue'
 import Card from './Card.vue';
+import InputField from './InputField.vue';
 
 const props = defineProps(['credentials'])
 const emit = defineEmits(['update'])
 
 const { name, password } = props.credentials
 
+const isValidSSID = (str) => {
+  return /^[^!#;+\]/"\t][^+\]/"\t]{1,31}$/.test(str)
+}
+
 const isInvalid = computed(() => {
-  // temp need to have input validation
-  return false
+  const name = props.credentials.name
+  const password = props.credentials.password
+  if (isValidSSID(name) && password.length > 4) {
+    return false
+  } else {
+    return true
+  }
 })
 
 const hasCredentials = computed(() => {
@@ -28,20 +38,20 @@ const credentialsUpdated = computed(() => {
 </script>
 
 <template>
-  <p class="instructions">Add your wifi credentials for easy
-    sharing</p>
-
+  <p class="instructions">{{ hasCredentials ? 'Update' :
+  'Add' }} your wifi credentials
+    <span v-if="!hasCredentials">
+      for easy sharing
+    </span>
+  </p>
   <Card>
-    <div>
-      <label for="name">Name</label>
-      <input type="text" name="name" id="name"
-        v-model="credentials.name">
-    </div>
-    <div>
-      <label for="password">Password</label>
-      <input type="text" name="password" id="password"
-        v-model="credentials.password">
-    </div>
+    <InputField :group="'name'" :type="'text'"
+      :model="credentials.name" :placeholder="'My WiFi'"
+      @input="e => credentials.name = e.target.value" />
+    <InputField :group="'password'" :type="'text'"
+      :placeholder="'password123'"
+      :model="credentials.password"
+      @input="e => credentials.password = e.target.value" />
   </Card>
   <div>
     <ActionButton :type="'submit'" :disabled="isInvalid"

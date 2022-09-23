@@ -5,8 +5,8 @@
   /* white */
   --color-white-light: rgb(244, 245, 246);
   --color-white-dark: rgb(237, 239, 239);
-  --color-white-16: rgba(244, 245, 246, 0.16);
-  --color-white-8: rgba(244, 245, 246, .08);
+  --color-white-light-16: rgba(244, 245, 246, 0.16);
+  --color-white-light-8: rgba(244, 245, 246, .08);
   --color-white-shadow-light: rgb(218, 222, 226);
   --color-white-shadow-dark: rgb(149, 162, 178);
 
@@ -56,6 +56,9 @@
 
   --color-text: var(--color-blue-dark);
 
+  --color-input-background: var(--color-blue-dark-8);
+  --color-input-background-pressed: var(--color-blue-dark-16);
+
   --color-button-submit-text: var(--color-green-dark);
   --color-button-submit-background: var(--color-green-dark-24);
   --color-button-submit-background-pressed: var(--color-green-dark-32);
@@ -74,6 +77,9 @@
     --color-card-shadow-dark: var(--color-blue-shadow-dark);
 
     --color-text: var(--color-white-light);
+
+    --color-input-background: var(--color-white-light-8);
+    --color-input-background-pressed: var(--color-white-light-16);
 
     --color-button-submit-text: var(--color-green-light);
     --color-button-submit-background: var(--color-green-light-24);

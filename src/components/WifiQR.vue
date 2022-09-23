@@ -16,18 +16,11 @@ const qrCode = computed(() => {
 const qrColor = computed(() => {
   return getComputedStyle(document.body).getPropertyValue('--color-text')
 })
-
-// const qrSize = computed(() => {
-//   const card = document.querySelector('.card')
-//   console.log(card);
-//   return getComputedStyle(card).getPropertyValue('width')
-// })
 </script>
 
 <template>
   <p class="instructions">Share your wifi with others by
-    having them scan this QR
-    code.</p>
+    having them scan this QR code</p>
   <h1 class="title">{{ credentials.name }}</h1>
   <Card @click="emit('edit')">
     <QrcodeVue :value="qrCode" :render-as="'svg'" class="qr"
@@ -42,7 +35,6 @@ const qrColor = computed(() => {
 </template>
 
 <style>
-
 .qr {
   border-radius: 1.5rem;
   color: var(--color-text);

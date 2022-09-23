@@ -44,21 +44,4 @@ function deleteCredentials() {
     font-size: var(--font-size-small);
     font-weight: var(--font-weight-light);
   }
-
-  label {
-    font-size: var(--font-size-small);
-    display: block;
-    text-align: left;
-  }
-
-  input {
-    font-size: var(--font-size-medium);
-    width: 100%;
-    border: none;
-    border-radius: 1rem;
-    padding: .5rem;
-    display: block;
-    box-sizing: border-box;
-    text-align: center;
-  }
 </style>
