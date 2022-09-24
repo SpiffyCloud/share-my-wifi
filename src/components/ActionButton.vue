@@ -24,9 +24,6 @@ const buttonTheme = 'button__' + props.type
   border: none;
   font-size: var(--font-size-buttons);
   font-weight: var(--font-weight-medium);
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
 }
 
 .button:disabled {
@@ -37,6 +34,8 @@ const buttonTheme = 'button__' + props.type
 .button__submit {
   color: var(--color-button-submit-text);
   background-color: var(--color-button-submit-background);
+  /* overrides default gray overlay on touchstart */
+  -webkit-tap-highlight-color: var(--color-button-submit-background-pressed);
 }
 
 .button__submit:hover,
@@ -52,6 +51,8 @@ const buttonTheme = 'button__' + props.type
 .button__delete {
   color: var(--color-button-delete-text);
   background: none;
+  /* overrides default gray overlay on touchstart */
+  -webkit-tap-highlight-color: var(--color-button-delete-background-pressed);
 }
 
 /* solves sticky problem on touch devices */
