@@ -10,6 +10,7 @@ import IconPlus from './components/icons/IconPlus.vue';
 import IconCheck from './components/icons/IconCheck.vue';
 import IconTrash from './components/icons/IconTrash.vue';
 import LayoutSelected from './components/LayoutSelected.vue';
+import IconWifiNotFound from './components/icons/IconWifiNotFound.vue';
 
 // data related
 const dataLoaded = ref(false)
@@ -101,8 +102,11 @@ const qr = computed(() => {
             v-model="credentials.password" />
         </template>
         <template v-slot:back>
-          <qrCode :value="qr" :render-as="'svg'" :margin="0"
-            :background="'none'" class="foreground" />
+          <qrCode v-if="!noCredentials" :value="qr"
+            :render-as="'svg'" :margin="0"
+            :background="'none'"
+            :class="{ foreground: !noCredentials, none: noCredentials }" />
+          <IconWifiNotFound v-else />
         </template>
       </Card>
     </template>
