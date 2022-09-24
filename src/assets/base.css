@@ -6,34 +6,34 @@
   --color-white-light: rgb(244, 245, 246);
   --color-white-dark: rgb(237, 239, 239);
   --color-white-light-16: rgba(244, 245, 246, 0.16);
-  --color-white-light-8: rgba(244, 245, 246, .08);
+  --color-white-light-8: rgba(244, 245, 246, 0.08);
   --color-white-shadow-light: rgb(218, 222, 226);
   --color-white-shadow-dark: rgb(149, 162, 178);
 
   /* blue */
   --color-blue-light: rgb(63, 79, 99);
   --color-blue-dark: rgb(56, 73, 92);
-  --color-blue-dark-16: rgba(56, 73, 92, .16);
-  --color-blue-dark-8: rgba(56, 73, 92, .08);
+  --color-blue-dark-16: rgba(56, 73, 92, 0.16);
+  --color-blue-dark-8: rgba(56, 73, 92, 0.08);
   --color-blue-shadow-light: rgb(66, 85, 107);
   --color-blue-shadow-dark: rgb(47, 61, 77);
 
   /* green */
   --color-green-light: rgb(111, 228, 158);
-  --color-green-light-24: rgba(111, 228, 158, .24);
-  --color-green-light-32: rgba(111, 228, 158, .32);
+  --color-green-light-24: rgba(111, 228, 158, 0.24);
+  --color-green-light-32: rgba(111, 228, 158, 0.32);
   --color-green-dark: rgb(74, 170, 112);
-  --color-green-dark-24: rgba(74, 170, 112, .24);
-  --color-green-dark-32: rgba(74, 170, 112, .32);
+  --color-green-dark-24: rgba(74, 170, 112, 0.24);
+  --color-green-dark-32: rgba(74, 170, 112, 0.32);
 
   /* pink */
   --color-pink-light: rgb(228, 111, 154);
-  --color-pink-light-24: rgba(228, 111, 154, .24);
+  --color-pink-light-24: rgba(228, 111, 154, 0.24);
   --color-pink-dark: rgb(218, 92, 137);
-  --color-pink-dark-24: rgba(218, 92, 137, .24);
+  --color-pink-dark-24: rgba(218, 92, 137, 0.24);
 
   /* font sizes */
-  --font-size-tiny: .8rem;
+  --font-size-tiny: 0.8rem;
   --font-size-small: 1rem;
   --font-size-medium: 1.5rem;
   --font-size-large: 2rem;

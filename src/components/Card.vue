@@ -1,11 +1,12 @@
 <script setup>
+import IconQuestion from './icons/IconQuestion.vue';
 const emit = defineEmits(['click'])
 const props = defineProps(['back'])
 </script>
 
 <template>
   <div class="container__card">
-    <div class="card" v-bind:class="{ flip: back }">
+    <div class="card preload" v-bind:class="{ flip: back }">
       <div class="card__content card__content--front">
         <slot name="front">
           front
@@ -79,7 +80,7 @@ const props = defineProps(['back'])
 }
 
 /* animations */
-.card__content--font {
+.card__content--front {
   transform:rotateY(0deg);
 }
 

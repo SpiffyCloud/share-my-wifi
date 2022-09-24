@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, onBeforeMount } from 'vue'
 import { Preferences } from '@capacitor/preferences';
 import Logo from './components/Logo.vue';
 import Card from './components/Card.vue';
@@ -12,12 +12,12 @@ import IconTrash from './components/icons/IconTrash.vue';
 import LayoutSelected from './components/LayoutSelected.vue';
 
 // data related
+const dataLoaded = ref(false)
 const credentials = ref({ name: '', password: '', updated: null })
 const showForm = ref(null)
 
 onMounted(() => {
   loadCredentials()
-  showForm.value = !hasCredentials()
 })
 
 async function loadCredentials() {
@@ -25,6 +25,8 @@ async function loadCredentials() {
   if (value) {
     credentials.value = JSON.parse(value)
   }
+  showForm.value = !hasCredentials()
+  dataLoaded.value = true
 }
 
 async function saveCredentials() {
@@ -59,6 +61,12 @@ function isValidSSID(str) {
   return /^[^!#;+\]/"\t][^+\]/"\t]{1,31}$/.test(str)
 }
 
+function resetStatus() {
+  deleteCredentials()
+  credentials.value = { name: '', password: '', updated: null }
+  showForm.value = true
+}
+
 const instructions = computed(() => {
   if (showForm.value) {
     return `${hasCredentials() ? 'Update' : 'Add'} your wifi credentials ${hasCredentials() ? '' : 'for easy sharing'}`
@@ -68,8 +76,10 @@ const instructions = computed(() => {
 })
 
 const qr = computed(() => {
-  const { name, password } = credentials.value
-  return `WIFI:S:${name};;P:${password};;`
+  if (hasCredentials) {
+    const { name, password } = credentials.value
+    return `WIFI:S:${name};;P:${password};;`
+  } else return ''
 })
 
 // const credentialsUpdated = computed(() => {
@@ -88,8 +98,9 @@ const areCredentialsValid = computed(() => {
 
 <template>
   <Logo />
-  <LayoutSelected :title="credentials.name"
-    :instructions="instructions" :showTimestamp="!showForm"
+  <LayoutSelected v-if="dataLoaded"
+    :title="credentials.name" :instructions="instructions"
+    :showTimestamp="!showForm"
     :timestamp="credentials.updated">
     <template v-slot:card>
       <Card :back="!showForm" @click="showForm = true">
@@ -102,8 +113,10 @@ const areCredentialsValid = computed(() => {
             v-model="credentials.password" />
         </template>
         <template v-slot:back>
-          <qrCode :value="qr" :render-as="'svg'" :margin="0"
-            :background="'none'" class="foreground" />
+          <qrCode v-if="hasCredentials" :value="qr"
+            :render-as="'svg'" :margin="0"
+            :background="'none'"
+            :class="{ foreground: !showForm, none: showForm }" />
         </template>
       </Card>
     </template>
@@ -115,7 +128,7 @@ const areCredentialsValid = computed(() => {
         <span>{{ hasCredentials ? 'Done' : 'Add' }}</span>
       </ActionButton>
       <ActionButton v-else :type="'delete'"
-        @click="deleteCredentials">
+        @click="resetStatus">
         <IconTrash />
         <span>Delete</span>
       </ActionButton>
@@ -125,6 +138,10 @@ const areCredentialsValid = computed(() => {
 
 <style>
 .foreground path:last-child {
-  fill: var(--color-text)
+  fill: var(--color-text);
+}
+
+.none path:last-child {
+  fill: var(--color-card-background);
 }
 </style>
