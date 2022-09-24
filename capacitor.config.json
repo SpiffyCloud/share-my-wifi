@@ -1,6 +1,6 @@
 {
-  "appId": "io.dayron.sharemywifi",
-  "appName": "share-my-wifi",
+  "appId": "net.myusc.sharemywifi",
+  "appName": "Share My WiFi QR Code",
   "webDir": "dist",
   "bundledWebRuntime": false
 }
