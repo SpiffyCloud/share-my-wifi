@@ -111,9 +111,14 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  justify-items: flex-start;
   align-items: center;
   align-content: space-between;
   margin: 0 auto;
   padding-bottom: 2rem;
+}
+
+@media screen and (min-height: 43.75rem) {
+  #app {
+    justify-content: center;
+  }
 }

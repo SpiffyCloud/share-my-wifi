@@ -40,7 +40,6 @@ async function deleteCredentials() {
 }
 
 function hideForm() {
-  const date = new Date()
   saveCredentials()
   credentials.value.saved = 'yes'
   showForm.value = false
