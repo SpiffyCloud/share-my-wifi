@@ -24,6 +24,9 @@ const buttonTheme = 'button__' + props.type
   border: none;
   font-size: var(--font-size-buttons);
   font-weight: var(--font-weight-medium);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 .button:disabled {
@@ -51,9 +54,11 @@ const buttonTheme = 'button__' + props.type
   background: none;
 }
 
-.button__delete:hover,
-.button__delete:active {
-  background-color: var(--color-button-delete-background-pressed);
+/* solves sticky problem on touch devices */
+@media (hover: hover) {
+  .button__delete:hover {
+    background-color: var(--color-button-delete-background-pressed);
+  }
 }
 
 .button__delete:focus {
