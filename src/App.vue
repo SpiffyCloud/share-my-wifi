@@ -89,25 +89,33 @@ const qr = computed(() => {
 
 <template>
   <Logo />
-  <LayoutSelected v-if="dataLoaded" :title="title" :instructions="instructions">
+  <LayoutSelected v-if="dataLoaded" :title="title"
+    :instructions="instructions">
     <template v-slot:card>
       <Card :back="!showForm" @click="showForm = true">
         <template v-slot:front>
-          <InputField :group="'name'" :type="'text'" :placeholder="'My WiFi'" v-model="credentials.name" />
-          <InputField :group="'password'" :type="'text'" :placeholder="'password123'" v-model="credentials.password" />
+          <InputField :group="'name'" :type="'text'"
+            :placeholder="'My WiFi'"
+            v-model="credentials.name" />
+          <InputField :group="'password'" :type="'text'"
+            :placeholder="'password123'"
+            v-model="credentials.password" />
         </template>
         <template v-slot:back>
-          <qrCode :value="qr" :render-as="'svg'" :margin="0" :background="'none'" class="foreground" />
+          <qrCode :value="qr" :render-as="'svg'" :margin="0"
+            :background="'none'" class="foreground" />
         </template>
       </Card>
     </template>
     <template v-slot:button>
-      <ActionButton v-if="showForm" :type="'submit'" :disabled="invalidCredentials" @click="hideForm">
+      <ActionButton v-if="showForm" :type="'submit'"
+        :disabled="invalidCredentials" @click="hideForm">
         <IconPlus v-if="noCredentials" />
         <IconCheck v-else />
         <span>{{ noCredentials ? 'Add' : 'Done' }}</span>
       </ActionButton>
-      <ActionButton v-else :type="'delete'" @click="resetStatus">
+      <ActionButton v-else :type="'delete'"
+        @click="resetStatus">
         <IconTrash />
         <span>Delete</span>
       </ActionButton>

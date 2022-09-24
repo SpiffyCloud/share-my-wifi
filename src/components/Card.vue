@@ -1,5 +1,4 @@
 <script setup>
-import IconQuestion from './icons/IconQuestion.vue';
 const emit = defineEmits(['click'])
 const props = defineProps(['back'])
 </script>
