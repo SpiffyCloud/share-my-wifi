@@ -13,7 +13,6 @@ import LayoutSelected from './components/LayoutSelected.vue';
 import IconWifiNotFound from './components/icons/IconWifiNotFound.vue';
 
 // data related
-const dataLoaded = ref(false)
 const credentials = ref(null)
 const showForm = ref(null)
 
@@ -26,29 +25,29 @@ async function loadCredentials() {
   if (value) {
     credentials.value = JSON.parse(value)
   } else {
-    credentials.value = { name: '', password: '', saved: 'no' }
+    credentials.value = { name: '', password: '', saved: false }
     showForm.value = true
   }
-  dataLoaded.value = true
 }
 
-async function saveCredentials() {
-  await Preferences.set({ key: 'credentials', value: JSON.stringify(credentials.value) })
+
+function saveCredentials() {
+  credentials.value.saved = true
+  Preferences.set({ key: 'credentials', value: JSON.stringify(credentials.value) })
 }
 
-async function deleteCredentials() {
-  await Preferences.remove({ key: 'credentials' })
+function deleteCredentials() {
+  Preferences.remove({ key: 'credentials' })
 }
 
 function hideForm() {
-  saveCredentials()
-  credentials.value.saved = 'yes'
+  saveCredentials();
   showForm.value = false
 }
 
 function resetStatus() {
   deleteCredentials()
-  credentials.value = { name: '', password: '', saved: 'no' }
+  credentials.value = { name: '', password: '', saved: false }
   showForm.value = true
 }
 
@@ -61,7 +60,7 @@ function isValidPassword(input) {
 }
 
 const noCredentials = computed(() => {
-  return credentials.value.saved === 'no'
+  return !credentials.value.saved
 })
 
 const title = computed(() => {
@@ -85,53 +84,35 @@ const qr = computed(() => {
   const { name, password } = credentials.value
   return `WIFI:T:WPA;S:${name};P:${password};;`
 })
+
 </script>
 
 <template>
   <Logo />
-  <LayoutSelected v-if="dataLoaded" :title="title"
-    :instructions="instructions">
+  <LayoutSelected v-if="credentials" :title="title" :instructions="instructions">
     <template v-slot:card>
       <Card :back="!showForm" @click="showForm = true">
         <template v-slot:front>
-          <InputField :group="'name'" :type="'text'"
-            :placeholder="'My WiFi'"
-            v-model="credentials.name" />
-          <InputField :group="'password'" :type="'text'"
-            :placeholder="'password123'"
-            v-model="credentials.password" />
+          <InputField :group="'name'" :type="'text'" :placeholder="'My WiFi'" v-model="credentials.name" />
+          <InputField :group="'password'" :type="'text'" :placeholder="'password123'" v-model="credentials.password" />
         </template>
         <template v-slot:back>
-          <qrCode v-if="!noCredentials" :value="qr"
-            :render-as="'svg'" :margin="0"
-            :background="'none'"
-            :class="{ foreground: !noCredentials, none: noCredentials }" />
+          <qrCode v-if="!noCredentials" :value="qr" :render-as="'svg'" :margin="0" :background="'none'"
+            :foreground="'var(--color-text)'" :size="200" />
           <IconWifiNotFound v-else />
         </template>
       </Card>
     </template>
     <template v-slot:button>
-      <ActionButton v-if="showForm" :type="'submit'"
-        :disabled="invalidCredentials" @click="hideForm">
+      <ActionButton v-if="showForm" :type="'submit'" :disabled="invalidCredentials" @click="hideForm">
         <IconPlus v-if="noCredentials" />
         <IconCheck v-else />
         <span>{{ noCredentials ? 'Add' : 'Done' }}</span>
       </ActionButton>
-      <ActionButton v-else :type="'delete'"
-        @click="resetStatus">
+      <ActionButton v-else :type="'delete'" @click="resetStatus">
         <IconTrash />
         <span>Delete</span>
       </ActionButton>
     </template>
   </LayoutSelected>
 </template>
-
-<style>
-.foreground path:last-child {
-  fill: var(--color-text);
-}
-
-.none path:last-child {
-  fill: var(--color-card-background);
-}
-</style>
