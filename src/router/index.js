@@ -8,6 +8,11 @@ const router = createRouter({
       name: 'WiFiDetails',
       path: '/',
       component: WifiDetailsView
+    },
+    {
+      name: 'WiFiList',
+      path: '/list',
+      component: () => import('@/views/WifiListView.vue')
     }
   ]
 })

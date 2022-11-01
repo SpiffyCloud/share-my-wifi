@@ -11,6 +11,7 @@ import IconCheck from '@/components/icons/IconCheck.vue';
 import IconTrash from '@/components/icons/IconTrash.vue';
 import LayoutSelected from '@/components/LayoutSelected.vue';
 import IconWifiNotFound from '@/components/icons/IconWifiNotFound.vue';
+import SwipeArea from '@/components/SwipeArea.vue';
 
 
 // data related
@@ -87,6 +88,7 @@ const instructions = computed(() => {
 </script>
 
 <template>
+  <SwipeArea placement="right" />
   <Logo />
   <LayoutSelected v-if="credentials" :title="title"
     :instructions="instructions">
