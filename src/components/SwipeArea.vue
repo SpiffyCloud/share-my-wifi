@@ -17,11 +17,13 @@ const target = computed(() => {
 
 <style>
 .swipe-area {
-  background-color: aliceblue;
+  background-color: var(--color-text); /* will remove */
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 5.5rem;
+  height: 100%;
+  width: 25%;
+  opacity: 5%; /* will remove */
 }
 
 .left {

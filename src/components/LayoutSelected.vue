@@ -10,7 +10,8 @@ const props = defineProps([
 
 <template>
   <Transition mode="out-in">
-    <TextInstructions :text="instructions" :key="instructions" />
+    <TextInstructions :text="instructions"
+      :key="instructions" />
   </Transition>
   <TextTitle :text="title" />
   <slot name="card"></slot>

@@ -1,6 +1,6 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue'
-import { Preferences } from '@capacitor/preferences';
+import { computed } from 'vue'
+import { storeToRefs } from 'pinia'
 import Logo from '@/components/Logo.vue';
 import Card from '@/components/Card.vue';
 import qrCode from 'qrcode.vue';
@@ -12,84 +12,18 @@ import IconTrash from '@/components/icons/IconTrash.vue';
 import LayoutSelected from '@/components/LayoutSelected.vue';
 import IconWifiNotFound from '@/components/icons/IconWifiNotFound.vue';
 import SwipeArea from '@/components/SwipeArea.vue';
+import { useCredentialsStore } from '@/stores/credentials'
+
+const credentialsStore = useCredentialsStore()
+const { credentials, noCredentials, showForm, invalidCredentials, qr, title, instructions } = storeToRefs(credentialsStore)
+const { hideForm, resetStatus } = credentialsStore
 
 
-// data related
-const credentials = ref(null)
-const showForm = ref(null)
-
-onMounted(() => {
-  loadCredentials()
-})
-
-async function loadCredentials() {
-  const { value } = await Preferences.get({ key: 'credentials' })
-  if (value) {
-    credentials.value = JSON.parse(value)
-  } else {
-    credentials.value = { name: '', password: '', saved: false }
-    showForm.value = true
-  }
-}
-
-function saveCredentials() {
-  credentials.value.saved = true
-  Preferences.set({ key: 'credentials', value: JSON.stringify(credentials.value) })
-}
-
-function deleteCredentials() {
-  Preferences.remove({ key: 'credentials' })
-}
-
-function hideForm() {
-  saveCredentials();
-  showForm.value = false
-}
-
-function resetStatus() {
-  deleteCredentials()
-  credentials.value = { name: '', password: '', saved: false }
-  showForm.value = true
-}
-
-function isValidSSID(input) {
-  return /^[^!#;+\]/"\t][^+\]/"\t]{1,31}$/.test(input)
-}
-
-function isValidPassword(input) {
-  return input >= 4
-}
-
-const noCredentials = computed(() => {
-  return !credentials.value.saved
-})
-
-const invalidCredentials = computed(() => {
-  // TODO: error messages
-  return !(isValidSSID(credentials.value.name) && isValidPassword(credentials.value.password.length))
-})
-
-const qr = computed(() => {
-  const { name, password } = credentials.value
-  return `WIFI:T:WPA;S:${name};P:${password};;`
-})
-
-const title = computed(() => {
-  return noCredentials.value ? '' : credentials.value.name
-})
-
-const instructions = computed(() => {
-  if (showForm.value) {
-    return `${noCredentials.value ? 'Add' : 'Update'} your wifi credentials ${noCredentials.value ? 'for easy sharing' : ''}`
-  } else {
-    return 'Share your wifi with others by having them scan this QR code'
-  }
-})
 </script>
 
 <template>
   <SwipeArea placement="right" />
-  <Logo />
+  <Logo text="Share My WiFi" left="4.36" top="1.14" />
   <LayoutSelected v-if="credentials" :title="title"
     :instructions="instructions">
     <template v-slot:card>

@@ -1,11 +1,19 @@
 <script setup>
+import { reactive } from 'vue';
 import IconWifi from './icons/IconWifi.vue';
+
+const props = defineProps(['text', 'left', 'top'])
+
+const svgPlacement = reactive({
+  left: `${props.left}rem`,
+  top: `${props.top}rem`
+})
 </script>
 
 <template>
   <div class="logo">
-    <IconWifi />
-    <h2 class="logo__text">Share My WiFi</h2>
+    <IconWifi :style="svgPlacement" />
+    <h2 class="logo__text">{{ text }}</h2>
   </div>
 </template>
 
@@ -23,8 +31,6 @@ import IconWifi from './icons/IconWifi.vue';
 
 .logo svg {
   position: relative;
-  left: 4.36rem;
-  top: 1.14rem;
   fill: currentColor;
   width: 1.5rem;
   height: 1.5rem;
