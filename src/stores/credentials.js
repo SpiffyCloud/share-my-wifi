@@ -62,7 +62,7 @@ export const useCredentialsStore = defineStore(
     })
 
     const title = computed(() => {
-      return !noCredentials ? '' : credentials.value.name
+      return noCredentials.value ? '' : credentials.value.name
     })
 
     const instructions = computed(() => {

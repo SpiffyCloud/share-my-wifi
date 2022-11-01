@@ -1,5 +1,4 @@
 <script setup>
-import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import Logo from '@/components/Logo.vue';
 import Card from '@/components/Card.vue';
