@@ -5,18 +5,16 @@ import { Preferences } from '@capacitor/preferences';
 
 export const useCredentialsStore = defineStore(
   'credentials', () => {
-    const credentials = ref(null)
+    const credentials = ref({ name: '', password: '', saved: false })
     const showForm = ref(null)
 
-    async function loadCredentials(time) {
+    async function loadCredentials() {
       const { value } = await Preferences.get({ key: 'credentials' })
       if (value) {
         credentials.value = JSON.parse(value)
       } else {
-        credentials.value = { name: '', password: '', saved: false }
         showForm.value = true
       }
-      console.log('loaded credentials', time);
     }
 
     function saveCredentials() {

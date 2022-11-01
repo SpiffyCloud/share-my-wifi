@@ -23,7 +23,7 @@ const target = computed(() => {
   bottom: 0;
   height: 100%;
   width: 25%;
-  opacity: 5%; /* will remove */
+  opacity: 1%; /* will remove */
 }
 
 .left {
