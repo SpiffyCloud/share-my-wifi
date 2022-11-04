@@ -4,13 +4,24 @@ import { computed } from 'vue'
 const props = defineProps(['placement'])
 
 const target = computed(() => {
-  return props.placement === 'left' ? 'WiFiDetails' : 'WiFiList'
+  let target
+  if (props.placement === 'left') {
+    target = {
+      name: 'WiFiDetails',
+      params: { index: 0 }
+    }
+  } else {
+    target = {
+      name: 'WiFiList'
+    }
+  }
+  return target
 })
 
 </script>
 
 <template>
-  <RouterLink :to="{ name: target }">
+  <RouterLink :to="target">
     <div class="swipe-area" :class="placement"></div>
   </RouterLink>
 </template>

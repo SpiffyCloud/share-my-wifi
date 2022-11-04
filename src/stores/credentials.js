@@ -2,92 +2,78 @@ import { defineStore } from "pinia"
 import { ref, computed } from 'vue'
 import { Preferences } from '@capacitor/preferences';
 
-
 export const useCredentialsStore = defineStore(
   'credentials', () => {
-    const credentials = ref({ name: '', password: '', saved: false })
-    const showForm = ref(null)
+    const state = ref('add')  // add, edit, share
+    const credentialsList = ref([])
+    const currentCredentials = ref(null)
 
-    async function loadCredentials() {
-      const { value } = await Preferences.get({ key: 'credentials' })
-      if (value) {
-        credentials.value = JSON.parse(value)
+    async function loadCredentialsList() {
+      const { value } = await Preferences.get({
+        key: 'credentials-list'
+      })
+      credentialsList.value = JSON.parse(value)
+      if (credentialsList.value.length !== 0) {
+        currentCredentials.value = credentialsList.value[0]
+        state.value = 'share'
       } else {
-        showForm.value = true
+        // state remains add
+        // show form
+        setEmptyCurrentCredentials()
       }
     }
 
-    function saveCredentials() {
-      credentials.value.saved = true
-      Preferences.set({ key: 'credentials', value: JSON.stringify(credentials.value) })
+    function setEmptyCurrentCredentials() {
+      currentCredentials.value = {
+        title: '',
+        password: '',
+        isSaved: false
+      }
     }
 
-    function deleteCredentials() {
-      Preferences.remove({ key: 'credentials' })
+    function uploadCredentialsList() {
+      Preferences.set({
+        key: 'credentials-list',
+        value: JSON.stringify(credentialsList.value)
+      })
     }
 
-    function hideForm() {
-      saveCredentials();
-      showForm.value = false
+    function saveCurrentCredentials() {
+      currentCredentials.value.isSaved = true
+      credentialsList.value.push(currentCredentials.value)
+      uploadCredentialsList()
     }
 
-    function resetStatus() {
-      deleteCredentials()
-      credentials.value = { name: '', password: '', saved: false }
-      showForm.value = true
+    function updateCurrentCredentials(index) {
+      credentialsList.value[index] = currentCredentials.value
+      uploadCredentialsList()
     }
 
-    function isValidSSID(input) {
-      return /^[^!#;+\]/"\t][^+\]/"\t]{1,31}$/.test(input)
+    function deleteCurrentCredentials() {
+      console.log(credentialsList.value);
+      credentialsList.value = credentialsList.value.filter(credentials => {
+        return credentials !== currentCredentials.value
+      })
+      uploadCredentialsList()
+      setEmptyCurrentCredentials()
     }
-
-    function isValidPassword(input) {
-      return input >= 4
-    }
-
-    const noCredentials = computed(() => {
-      return !credentials.value.saved
-    })
-
-    const invalidCredentials = computed(() => {
-      // TODO: error messages
-      return !(isValidSSID(credentials.value.name) && isValidPassword(credentials.value.password.length))
-    })
 
     const qr = computed(() => {
-      const { name, password } = credentials.value
-      return `WIFI:T:WPA;S:${name};P:${password};;`
+      const { title, password } = currentCredentials.value
+      return `WIFI:T:WPA;S:${title};P:${password};;`
     })
 
-    const title = computed(() => {
-      return noCredentials.value ? '' : credentials.value.name
-    })
-
-    const instructions = computed(() => {
-      if (showForm) {
-        return `${noCredentials ? 'Add' : 'Update'} your wifi credentials ${noCredentials ? 'for easy sharing' : ''}`
-      } else {
-        return 'Share your wifi with others by having them scan this QR code'
-      }
-    })
-
-    loadCredentials(1)
+    loadCredentialsList()
 
     return {
-      credentials,
-      showForm,
-      noCredentials,
-      invalidCredentials,
+      state,
+      credentialsList,
+      currentCredentials,
       qr,
-      title,
-      instructions,
-      loadCredentials,
-      saveCredentials,
-      deleteCredentials,
-      hideForm,
-      resetStatus,
-      isValidSSID,
-      isValidPassword,
+      saveCurrentCredentials,
+      updateCurrentCredentials,
+      deleteCurrentCredentials,
+      setEmptyCurrentCredentials
     }
-})
-
+  }
+)

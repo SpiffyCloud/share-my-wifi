@@ -5,13 +5,21 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      name: 'WiFiDetails',
       path: '/',
-      component: WifiDetailsView
+      redirect: {
+        name: 'WiFiDetails',
+        params: { index: 0 }
+      }
+    },
+    {
+      name: 'WiFiDetails',
+      path: '/credentials/:index',
+      component: WifiDetailsView,
+      props: true
     },
     {
       name: 'WiFiList',
-      path: '/list',
+      path: '/credentials',
       component: () => import('@/views/WifiListView.vue')
     }
   ]

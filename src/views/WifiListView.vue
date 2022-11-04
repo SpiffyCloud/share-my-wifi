@@ -10,36 +10,48 @@ import ActionButton from '@/components/ActionButton.vue';
 const router = useRouter()
 const credentialsStore = useCredentialsStore()
 
-const { credentials, showForm } = storeToRefs(credentialsStore)
+const { credentialsList, state, currentCredentials } = storeToRefs(credentialsStore)
 
-const wifis = [credentials]
+const { setEmptyCurrentCredentials } = credentialsStore
 
-function edit() {
-  showForm.value = true
-  router.push({ name: 'WiFiDetails' })
+function showCurrentCredentials(intent, index) {
+  state.value = intent
+  currentCredentials.value = credentialsList.value[index]
+  console.log(currentCredentials.value);
+  router.push({ name: 'WiFiDetails', params: { index } })
+}
 
+function add() {
+  state.value = 'add'
+  setEmptyCurrentCredentials()
+  router.push({ name: 'WiFiDetails', params: { index: credentialsList.value.length } })
 }
 </script>
 
 <template>
   <div class="container">
+    <button @click="add">Add</button>
     <Logo text="My WiFis" left="2.67" top="1.14" />
-    <TextInstructions
-      text="Manage and prioritize your credentials" />
-    <ul>
-      <li v-for="(wifi, index) in wifis" :key="index">
-        <RouterLink :to="{ name: 'WiFiDetails' }">
-          <h2>{{ wifi.value.name }}</h2>
+    <TextInstructions text="Manage and prioritize your credentials" />
+    <ul v-if="credentialsList.length !== 0">
+      <li v-for="(credentials, index) in credentialsList" :key="index">
+        {{ index }}
+        <RouterLink :to="{
+          name: 'WiFiDetails', params: { index }
+        }">
+          <h2>{{ credentials.title }}</h2>
         </RouterLink>
-        <ActionButton type="share"
-          @click="router.push({ name: 'WiFiDetails' })">
+        <ActionButton type="share" @click="showCurrentCredentials('share', index)">
           Share
         </ActionButton>
-        <ActionButton type="edit" @click="edit">
+        <ActionButton type="edit" @click="showCurrentCredentials('edit', index)">
           Edit
         </ActionButton>
       </li>
     </ul>
+    <div v-else>
+      <p>Add some wifi credentials </p>
+    </div>
   </div>
   <SwipeArea placement="left" />
 </template>
