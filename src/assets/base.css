@@ -92,11 +92,11 @@
 
 body {
   height: 100vh;
-  min-width: 16rem;
-  display: flex;
   text-align: center;
+  /* min-width: 16rem;
+  display: flex;
   margin: 0;
-  padding: 0 2rem;
+  padding: 0 2rem; */
   color: var(--color-text);
   background: var(--color-background);
   transition: color 0.5s, background-color 0.5s;
@@ -107,14 +107,14 @@ body {
 }
 
 #app {
-  flex-grow: 1;
+  /* flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   align-content: space-between;
   margin: 0 auto;
-  padding-bottom: 2rem;
+  padding-bottom: 2rem; */
 }
 
 @media screen and (min-height: 43.75rem) {

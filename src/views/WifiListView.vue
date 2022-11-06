@@ -6,22 +6,27 @@ import Logo from '@/components/Logo.vue';
 import { useCredentialsStore } from '@/stores/credentials';
 import { storeToRefs } from 'pinia';
 import ActionButton from '@/components/ActionButton.vue';
+import IconPlus from '@/components/icons/IconPlus.vue';
+import IconPen from '@/components/icons/IconPen.vue';
 
 const router = useRouter()
 const credentialsStore = useCredentialsStore()
 
 const { credentialsList, state, currentCredentials } = storeToRefs(credentialsStore)
 
-const { setEmptyCurrentCredentials } = credentialsStore
+const { setEmptyCurrentCredentials, setCurrentCredentials } = credentialsStore
+
+// set default credentials and state
+// setCurrentCredentials(0)
+// state.value = 'share'
 
 function showCurrentCredentials(intent, index) {
   state.value = intent
-  currentCredentials.value = credentialsList.value[index]
-  console.log(currentCredentials.value);
+  setCurrentCredentials(index)
   router.push({ name: 'WiFiDetails', params: { index } })
 }
 
-function add() {
+function create() {
   state.value = 'add'
   setEmptyCurrentCredentials()
   router.push({ name: 'WiFiDetails', params: { index: credentialsList.value.length } })
@@ -30,22 +35,16 @@ function add() {
 
 <template>
   <div class="container">
-    <button @click="add">Add</button>
+    <ActionButton @click="create" type="create">
+      <IconPlus />
+    </ActionButton>
     <Logo text="My WiFis" left="2.67" top="1.14" />
     <TextInstructions text="Manage and prioritize your credentials" />
     <ul v-if="credentialsList.length !== 0">
       <li v-for="(credentials, index) in credentialsList" :key="index">
-        {{ index }}
-        <RouterLink :to="{
-          name: 'WiFiDetails', params: { index }
-        }">
-          <h2>{{ credentials.title }}</h2>
-        </RouterLink>
-        <ActionButton type="share" @click="showCurrentCredentials('share', index)">
-          Share
-        </ActionButton>
+        <h3>{{ credentials.title }}</h3>
         <ActionButton type="edit" @click="showCurrentCredentials('edit', index)">
-          Edit
+          <IconPen />
         </ActionButton>
       </li>
     </ul>
@@ -58,7 +57,7 @@ function add() {
 
 <style>
 .container {
-  min-height: 100vh;
+  /* min-height: 100vh; */
 }
 
 ul {
@@ -68,16 +67,5 @@ ul {
 }
 
 li {
-  background-color: var(--color-card-background);
-  padding: .5rem 2rem;
-  border-radius: 1.5rem;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  box-shadow:
-    -3px -3px 0px 4px var(--color-card-shadow-light),
-     8px 8px 0px var(--color-card-shadow-dark);
 }
 </style>

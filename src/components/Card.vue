@@ -1,18 +1,23 @@
 <script setup>
-const emit = defineEmits(['click'])
+const emit = defineEmits(['click', 'flip'])
 const props = defineProps(['back'])
+
+function flip(e) {
+  if (e.target === e.currentTarget) {
+    emit('flip')
+  }
+}
 </script>
 
 <template>
   <div class="container__card">
     <div class="card preload" v-bind:class="{ flip: back }">
-      <div class="card__content card__content--front">
+      <div class="card__content card__content--front" v-on:click="flip">
         <slot name="front">
           front
         </slot>
       </div>
-      <div class="card__content card__content--back"
-        @click="emit('click')">
+      <div class="card__content card__content--back" @click="emit('click')">
         <slot name="back">
           back
         </slot>

@@ -1,7 +1,12 @@
 <script setup>
 import { RouterLink } from 'vue-router'
 import { computed } from 'vue'
+import { useCredentialsStore } from '@/stores/credentials';
+import { storeToRefs } from 'pinia';
 const props = defineProps(['placement'])
+const credentialsStore = useCredentialsStore()
+const { state } = storeToRefs(credentialsStore)
+
 
 const target = computed(() => {
   let target
@@ -10,9 +15,10 @@ const target = computed(() => {
       name: 'WiFiDetails',
       params: { index: 0 }
     }
+    state.value = 'share'
   } else {
     target = {
-      name: 'WiFiList'
+      name: 'WiFiList',
     }
   }
   return target

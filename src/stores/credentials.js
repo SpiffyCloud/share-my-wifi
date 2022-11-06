@@ -14,7 +14,7 @@ export const useCredentialsStore = defineStore(
       })
       credentialsList.value = JSON.parse(value)
       if (credentialsList.value.length !== 0) {
-        currentCredentials.value = credentialsList.value[0]
+        setCurrentCredentials(0)
         state.value = 'share'
       } else {
         // state remains add
@@ -29,6 +29,12 @@ export const useCredentialsStore = defineStore(
         password: '',
         isSaved: false
       }
+    }
+
+    function setCurrentCredentials(index) {
+      console.log('index', index);
+      currentCredentials.value = credentialsList.value[index]
+      console.log('current creds', currentCredentials.value);
     }
 
     function uploadCredentialsList() {
@@ -63,17 +69,17 @@ export const useCredentialsStore = defineStore(
       return `WIFI:T:WPA;S:${title};P:${password};;`
     })
 
-    loadCredentialsList()
-
     return {
       state,
       credentialsList,
       currentCredentials,
       qr,
+      setCurrentCredentials,
       saveCurrentCredentials,
       updateCurrentCredentials,
       deleteCurrentCredentials,
-      setEmptyCurrentCredentials
+      setEmptyCurrentCredentials,
+      loadCredentialsList
     }
   }
 )

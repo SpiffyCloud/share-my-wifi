@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import WifiDetailsView from '@/views/WifiDetailsView.vue'
+import WifiListView from '@/views/WifiListView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,12 +16,18 @@ const router = createRouter({
       name: 'WiFiDetails',
       path: '/credentials/:index',
       component: WifiDetailsView,
-      props: true
+      props: true,
+      meta: {
+        transition: 'push-left'
+      }
     },
     {
       name: 'WiFiList',
       path: '/credentials',
-      component: () => import('@/views/WifiListView.vue')
+      component: WifiListView,
+      meta: {
+        transition: 'push-right'
+      }
     }
   ]
 })

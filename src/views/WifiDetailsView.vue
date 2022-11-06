@@ -13,14 +13,19 @@ import IconWifiNotFound from '@/components/icons/IconWifiNotFound.vue';
 import SwipeArea from '@/components/SwipeArea.vue';
 import { useCredentialsStore } from '@/stores/credentials'
 import { useRouter } from 'vue-router';
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 
 const router = useRouter()
 const credentialsStore = useCredentialsStore()
 const { credentialsList, currentCredentials, qr, state } = storeToRefs(credentialsStore)
-const { saveCurrentCredentials, updateCurrentCredentials, deleteCurrentCredentials } = credentialsStore
+const { saveCurrentCredentials, updateCurrentCredentials, deleteCurrentCredentials, setCurrentCredentials } = credentialsStore
 
 const props = defineProps(['index'])
+
+onMounted(() => {
+  setCurrentCredentials(props.index)
+
+})
 
 function removeCurrentCredentials() {
   deleteCurrentCredentials()
@@ -60,7 +65,7 @@ const instructions = computed(() => {
   <Logo text="Share My WiFi" left="4.36" top="1.14" />
   <LayoutSelected v-if="currentCredentials" :title="title" :instructions="instructions">
     <template v-slot:card>
-      <Card :back="state === 'share'" @click="state = 'edit'">
+      <Card :back="state === 'share'" @click="state = 'edit'" @flip="state = 'share'">
         <template v-slot:front>
           <InputField :group="'name'" :type="'text'" :placeholder="'My WiFi'" v-model="currentCredentials.title" />
           <InputField :group="'password'" :type="'text'" :placeholder="'password123'" v-model="currentCredentials.password" />
@@ -73,15 +78,15 @@ const instructions = computed(() => {
       </Card>
     </template>
     <template v-slot:button>
+      <ActionButton v-if="state === 'share'" type="submit">Edit</ActionButton>
       <ActionButton v-if="state !== 'share'" :type="'submit'" :disabled="false" @click="save">
         <IconPlus v-if="state === 'add'" />
         <IconCheck v-else />
         <span>{{ state === 'add' ? 'Add' : 'Done'
         }}</span>
       </ActionButton>
-      <ActionButton v-else :type="'delete'" @click="removeCurrentCredentials">
+      <ActionButton v-if="state === 'edit'" :type="'delete'" @click="removeCurrentCredentials">
         <IconTrash />
-        <span>Delete</span>
       </ActionButton>
     </template>
   </LayoutSelected>

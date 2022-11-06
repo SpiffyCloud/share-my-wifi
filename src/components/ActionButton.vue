@@ -5,8 +5,7 @@ const buttonTheme = 'button__' + props.type
 </script>
 
 <template>
-  <button class="button" :class="buttonTheme"
-    @click="emit('click')" :disabled="disabled">
+  <button class="button" :class="buttonTheme" @click="emit('click')" :disabled="disabled">
     <slot>&#9786; action</slot>
   </button>
 </template>
@@ -30,8 +29,21 @@ const buttonTheme = 'button__' + props.type
   pointer-events: none;
 }
 
-.button__delete, .button__submit {
+.button__delete,
+.button__submit {
   margin-top: 1.75rem;
+}
+
+.button__create {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  background-color: var(--color-text);
+  color: var(--color-background);
+}
+
+.button__edit {
+  color: var(--color-text);
 }
 
 .button__submit {
@@ -52,6 +64,8 @@ const buttonTheme = 'button__' + props.type
 }
 
 .button__delete {
+  position: absolute;
+  bottom: 0;
   color: var(--color-button-delete-text);
   background: none;
   /* overrides default gray overlay on touchstart */
