@@ -1,6 +1,6 @@
 {
   "name": "share-my-wifi",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -9,17 +9,16 @@
     "ionic:serve": "npm run dev"
   },
   "dependencies": {
-    "@capacitor/android": "^4.3.0",
     "@capacitor/assets": "^1.0.14",
-    "@capacitor/core": "^4.3.0",
-    "@capacitor/ios": "^4.3.0",
-    "@capacitor/preferences": "^4.0.1",
+    "@capacitor/core": "^4.6.3",
+    "@capacitor/ios": "^4.6.3",
+    "@capacitor/preferences": "^4.0.2",
     "qrcode.vue": "^3.3.3",
-    "vue": "^3.2.38"
+    "vue": "^3.2.47"
   },
   "devDependencies": {
-    "@capacitor/cli": "^4.3.0",
-    "@vitejs/plugin-vue": "^3.0.3",
-    "vite": "^3.0.9"
+    "@capacitor/cli": "^4.6.3",
+    "@vitejs/plugin-vue": "^3.2.0",
+    "vite": "^3.2.5"
   }
 }

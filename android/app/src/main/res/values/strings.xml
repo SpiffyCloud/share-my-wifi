@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name">share-my-wifi</string>
-    <string name="title_activity_main">share-my-wifi</string>
-    <string name="package_name">io.dayron.sharemywifi</string>
-    <string name="custom_url_scheme">io.dayron.sharemywifi</string>
-</resources>

@@ -97,8 +97,7 @@ const qr = computed(() => {
           <InputField :group="'password'" :type="'text'" :placeholder="'password123'" v-model="credentials.password" />
         </template>
         <template v-slot:back>
-          <qrCode v-if="!noCredentials" :value="qr" :render-as="'svg'" :margin="0" :background="'none'"
-            :foreground="'var(--color-text)'" :size="200" />
+          <qrCode v-if="!noCredentials" :value="qr" :render-as="'svg'" :margin="0" :background="'none'" :foreground="'var(--color-text)'" :size="200" />
           <IconWifiNotFound v-else />
         </template>
       </Card>
@@ -107,7 +106,7 @@ const qr = computed(() => {
       <ActionButton v-if="showForm" :type="'submit'" :disabled="invalidCredentials" @click="hideForm">
         <IconPlus v-if="noCredentials" />
         <IconCheck v-else />
-        <span>{{ noCredentials ? 'Add' : 'Done' }}</span>
+        <span>{{ noCredentials? 'Add': 'Done' }}</span>
       </ActionButton>
       <ActionButton v-else :type="'delete'" @click="resetStatus">
         <IconTrash />

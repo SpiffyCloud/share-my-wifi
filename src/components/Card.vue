@@ -11,8 +11,7 @@ const props = defineProps(['back'])
           front
         </slot>
       </div>
-      <div class="card__content card__content--back"
-        @click="emit('click')">
+      <div class="card__content card__content--back" @click="emit('click')">
         <slot name="back">
           back
         </slot>
@@ -44,7 +43,7 @@ const props = defineProps(['back'])
   border-radius: 1.5rem;
   box-shadow:
     -3px -3px 0px 4px var(--color-card-shadow-light),
-     8px 8px 0px var(--color-card-shadow-dark);
+    8px 8px 0px var(--color-card-shadow-dark);
 }
 
 .card__content {
@@ -80,7 +79,7 @@ const props = defineProps(['back'])
 
 /* animations */
 .card__content--front {
-  transform:rotateY(0deg);
+  transform: rotateY(0deg);
 }
 
 .card__content--back {

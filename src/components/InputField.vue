@@ -15,9 +15,7 @@ const emit = defineEmits(['update:modelValue'])
     <label class="input__label" :for="group">
       {{ group }}
     </label>
-    <input :type="type" :name="group" :id="group"
-      :placeholder="placeholder" :value="modelValue"
-      @input="e => emit('update:modelValue', e.target.value)">
+    <input :type="type" :name="group" :id="group" :placeholder="placeholder" :value="modelValue" @input="e => emit('update:modelValue', e.target.value)">
   </div>
 </template>
 

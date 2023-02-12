@@ -5,8 +5,7 @@ const buttonTheme = 'button__' + props.type
 </script>
 
 <template>
-  <button class="button" :class="buttonTheme"
-    @click="emit('click')" :disabled="disabled">
+  <button class="button" :class="buttonTheme" @click="emit('click')" :disabled="disabled">
     <slot>&#9786; action</slot>
   </button>
 </template>
